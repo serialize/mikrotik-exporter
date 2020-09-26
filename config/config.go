@@ -14,6 +14,7 @@ type Config struct {
 		BGP     bool `yaml:"bgp,omitempty"`
 		DHCP    bool `yaml:"dhcp,omitempty"`
 		DHCPv6  bool `yaml:"dhcpv6,omitempty"`
+		DHCPL   bool `yaml:"dhcpl,omitempty"`
 		Routes  bool `yaml:"routes,omitempty"`
 		POE     bool `yaml:"poe,omitempty"`
 		Pools   bool `yaml:"pools,omitempty"`
@@ -23,6 +24,7 @@ type Config struct {
 		WlanIF  bool `yaml:"wlanif,omitempty"`
 		Monitor bool `yaml:"monitor,omitempty"`
 		Ipsec   bool `yaml:"ipsec,omitempty"`
+		CapsMan bool `yaml:"capsman,omitempty"`
 	} `yaml:"features,omitempty"`
 }
 
@@ -32,7 +34,7 @@ type Device struct {
 	Address  string `yaml:"address"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
-	Port	 string `yaml:"port"`
+	Port     string `yaml:"port"`
 }
 
 // Load reads YAML from reader and unmashals in Config

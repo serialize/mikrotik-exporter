@@ -1,0 +1,31 @@
+devices:
+  - name: gw2
+    address: gw2.sez23.net
+    user: prometheus
+    password: change-me
+  - name: ap3
+    address: ap3.sez23.net
+    user: prometheus
+    password: change-me
+  - name: ap4
+    address: ap4.sez23.net
+    user: prometheus
+    password: change-me
+  - name: ap5
+    address: ap5.sez23.net
+    user: prometheus
+    password: change-me
+
+features:
+  bgp: false 
+  dhcp: true
+  dhcpv6: false
+  dhcpl: true
+  routes: false
+  pools: true
+  optics: false
+  wlansta: true
+  wlanif: true
+  ipsec: false 
+  monitor: true 
+  capsman: true

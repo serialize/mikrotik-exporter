@@ -1,9 +1,9 @@
-FROM debian:9.9-slim
+FROM frolvlad/alpine-glibc
 
 EXPOSE 9436
 
 COPY scripts/start.sh /app/
-COPY dist/mikrotik-exporter_linux_amd64 /app/mikrotik-exporter
+COPY mikrotik-exporter /app/mikrotik-exporter
 
 RUN chmod 755 /app/*
 

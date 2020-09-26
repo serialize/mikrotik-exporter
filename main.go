@@ -40,6 +40,7 @@ var (
 	withRoutes  = flag.Bool("with-routes", false, "retrieves routing table information")
 	withDHCP    = flag.Bool("with-dhcp", false, "retrieves DHCP server metrics")
 	withDHCPv6  = flag.Bool("with-dhcpv6", false, "retrieves DHCPv6 server metrics")
+	withDHCPL   = flag.Bool("with-dhcpl", false, "retrieves DHCP server leases")
 	withPOE     = flag.Bool("with-poe", false, "retrieves PoE metrics")
 	withPools   = flag.Bool("with-pools", false, "retrieves IP(v6) pool metrics")
 	withOptics  = flag.Bool("with-optics", false, "retrieves optical diagnostic metrics")
@@ -48,6 +49,7 @@ var (
 	withWlanIF  = flag.Bool("with-wlanif", false, "retrieves wlan interface metrics")
 	withMonitor = flag.Bool("with-monitor", false, "retrieves ethernet interface monitor info")
 	withIpsec   = flag.Bool("with-ipsec", false, "retrieves ipsec metrics")
+	withCapsMan = flag.Bool("with-capsman", false, "retrieves capsman metrics")
 
 	cfg *config.Config
 
@@ -123,7 +125,7 @@ func loadConfigFromFlags() (*config.Config, error) {
 				Address:  *address,
 				User:     *user,
 				Password: *password,
-				Port: *deviceport,
+				Port:     *deviceport,
 			},
 		},
 	}, nil
@@ -193,6 +195,10 @@ func collectorOptions() []collector.Option {
 		opts = append(opts, collector.WithDHCPv6())
 	}
 
+	if *withDHCPL || cfg.Features.DHCPL {
+		opts = append(opts, collector.WithDHCPL())
+	}
+
 	if *withPOE || cfg.Features.POE {
 		opts = append(opts, collector.WithPOE())
 	}
@@ -224,6 +230,10 @@ func collectorOptions() []collector.Option {
 
 	if *withIpsec || cfg.Features.Ipsec {
 		opts = append(opts, collector.WithIpsec())
+	}
+
+	if *withCapsMan || cfg.Features.CapsMan {
+		opts = append(opts, collector.WithCapsMan())
 	}
 
 	if *timeout != collector.DefaultTimeout {

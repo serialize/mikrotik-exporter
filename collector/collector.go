@@ -156,6 +156,13 @@ func WithIpsec() Option {
 	}
 }
 
+// WithIpsec enables ipsec metrics
+func WithCapsMan() Option {
+	return func(c *collector) {
+		c.collectors = append(c.collectors, newCapsManCollector())
+	}
+}
+
 // Option applies options to collector
 type Option func(*collector)
 
@@ -253,7 +260,7 @@ func (c *collector) connect(d *config.Device) (*routeros.Client, error) {
 
 	log.WithField("device", d.Name).Debug("trying to Dial")
 	if !c.enableTLS {
-		if(d.Port) == "" {
+		if (d.Port) == "" {
 			d.Port = apiPort
 		}
 		conn, err = net.DialTimeout("tcp", d.Address+":"+d.Port, c.timeout)
@@ -265,7 +272,7 @@ func (c *collector) connect(d *config.Device) (*routeros.Client, error) {
 		tlsCfg := &tls.Config{
 			InsecureSkipVerify: c.insecureTLS,
 		}
-		if(d.Port) == "" {
+		if (d.Port) == "" {
 			d.Port = apiPortTLS
 		}
 		conn, err = tls.DialWithDialer(&net.Dialer{
